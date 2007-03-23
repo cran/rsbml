@@ -1,0 +1,2 @@
+PKG_CFLAGS=-g -D_R_=1 -DUSE_R=1 -I/usr/include/sbml -I/usr/local/include/sbml -I$(R_HOME)/include
+PKG_LIBS=-L/usr/local/lib -lsbml

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="TestModel with modifiers">
+          <annotation>
+  <listOfLayouts xmlns="http://projects.eml.org/bcb/sbml/level2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <layout id="Layout_1">
+      <dimensions width="400" height="230">
+      </dimensions>
+      <listOfCompartmentGlyphs>
+        <compartmentGlyph id="CompartmentGlyph_1" compartment="Yeast">
+          <boundingBox id="bb1">
+            <position x="5" y="5">
+            </position>
+            <dimensions width="390" height="220">
+            </dimensions>
+          </boundingBox>
+        </compartmentGlyph>
+      </listOfCompartmentGlyphs>
+      <listOfSpeciesGlyphs>
+        <speciesGlyph id="SpeciesGlyph_Glucose" species="Glucose">
+          <boundingBox id="bb2">
+            <position x="105" y="20">
+            </position>
+            <dimensions width="130" height="20">
+            </dimensions>
+          </boundingBox>
+        </speciesGlyph>
+        <speciesGlyph id="SpeciesGlyph_G6P" species="Glucose-6-phosphate">
+          <boundingBox id="bb5">
+            <position x="50" y="190">
+            </position>
+            <dimensions width="270" height="20">
+            </dimensions>
+          </boundingBox>
+        </speciesGlyph>
+        <speciesGlyph id="SpeciesGlyph_ATP" species="ATP">
+          <boundingBox id="bb3">
+            <position x="270" y="70">
+            </position>
+            <dimensions width="80" height="20">
+            </dimensions>
+          </boundingBox>
+        </speciesGlyph>
+        <speciesGlyph id="glyph_ADP" species="ADP">
+          <boundingBox id="bb4">
+            <position x="270" y="140">
+            </position>
+            <dimensions width="80" height="20">
+            </dimensions>
+          </boundingBox>
+        </speciesGlyph>
+        <speciesGlyph id="SpeciesGlyph_Pi" species="Pi">
+          <boundingBox id="bb6">
+            <position x="50" y="100">
+            </position>
+            <dimensions width="60" height="20">
+            </dimensions>
+          </boundingBox>
+        </speciesGlyph>
+      </listOfSpeciesGlyphs>
+      <listOfReactionGlyphs>
+        <reactionGlyph id="glyph_Hexokinase" reaction="Hexokinase">
+          <curve>
+            <listOfCurveSegments>
+              <curveSegment xsi:type="LineSegment">
+                <start x="170" y="100">
+                </start>
+                <end x="170" y="130">
+                </end>
+              </curveSegment>
+            </listOfCurveSegments>
+          </curve>
+          <listOfSpeciesReferenceGlyphs>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_Glucose" speciesReference="SpeciesReference_Glucose" speciesGlyph="SpeciesGlyph_Glucose" role="substrate">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="LineSegment">
+                    <start x="170" y="100">
+                    </start>
+                    <end x="170" y="50">
+                    </end>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_ATP" speciesReference="SpeciesReference_ATP" speciesGlyph="SpeciesGlyph_ATP" role="sidesubstrate">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="CubicBezier">
+                    <start x="170" y="100">
+                    </start>
+                    <end x="260" y="80">
+                    </end>
+                    <basePoint1 x="170" y="80">
+                    </basePoint1>
+                    <basePoint2 x="170" y="80">
+                    </basePoint2>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_G6P_1" speciesReference="SpeciesReference_G6P" speciesGlyph="SpeciesGlyph_G6P" role="product">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="LineSegment">
+                    <start x="170" y="130">
+                    </start>
+                    <end x="170" y="180">
+                    </end>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_ADP" speciesReference="SpeciesReference_ADP" speciesGlyph="glyph_ADP" role="sideproduct">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="CubicBezier">
+                    <start x="170" y="130">
+                    </start>
+                    <end x="260" y="150">
+                    </end>
+                    <basePoint1 x="170" y="150">
+                    </basePoint1>
+                    <basePoint2 x="170" y="150">
+                    </basePoint2>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_G6P_2" speciesReference="ModifierSpeciesReference_G6P" speciesGlyph="SpeciesGlyph_G6P" role="inhibitor">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="CubicBezier">
+                    <start x="45" y="200">
+                    </start>
+                    <end x="165" y="120">
+                    </end>
+                    <basePoint1 x="0" y="200">
+                    </basePoint1>
+                    <basePoint2 x="0" y="120">
+                    </basePoint2>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+            <speciesReferenceGlyph id="SpeciesReferenceGlyph_PI" speciesReference="ModifierSpeciesReference_Pi" speciesGlyph="SpeciesGlyph_Pi" role="activator">
+              <curve>
+                <listOfCurveSegments>
+                  <curveSegment xsi:type="CubicBezier">
+                    <start x="115" y="110">
+                    </start>
+                    <end x="165" y="110">
+                    </end>
+                    <basePoint1 x="140" y="110">
+                    </basePoint1>
+                    <basePoint2 x="140" y="110">
+                    </basePoint2>
+                  </curveSegment>
+                </listOfCurveSegments>
+              </curve>
+            </speciesReferenceGlyph>
+          </listOfSpeciesReferenceGlyphs>
+        </reactionGlyph>
+      </listOfReactionGlyphs>
+      <listOfTextGlyphs>
+        <textGlyph id="TextGlyph_Glucose" graphicalObject="SpeciesGlyph_Glucose" originOfText="Glucose">
+          <boundingBox id="bbA">
+            <position x="115" y="20">
+            </position>
+            <dimensions width="110" height="20">
+            </dimensions>
+          </boundingBox>
+        </textGlyph>
+        <textGlyph id="TextGlyph_G6P" graphicalObject="SpeciesGlyph_G6P" originOfText="Glucose-6-phosphate">
+          <boundingBox id="bbD">
+            <position x="60" y="190">
+            </position>
+            <dimensions width="250" height="20">
+            </dimensions>
+          </boundingBox>
+        </textGlyph>
+        <textGlyph id="TextGlyph_ATP" graphicalObject="SpeciesGlyph_ATP" originOfText="ATP">
+          <boundingBox id="bbB">
+            <position x="280" y="70">
+            </position>
+            <dimensions width="60" height="20">
+            </dimensions>
+          </boundingBox>
+        </textGlyph>
+        <textGlyph id="TextGlyph_ADP" graphicalObject="glyph_ADP" originOfText="ADP">
+          <boundingBox id="bbC">
+            <position x="280" y="140">
+            </position>
+            <dimensions width="60" height="20">
+            </dimensions>
+          </boundingBox>
+        </textGlyph>
+        <textGlyph id="TextGlyph_PI" graphicalObject="SpeciesGlyph_Pi" originOfText="Pi">
+          <boundingBox id="bbE">
+            <position x="60" y="100">
+            </position>
+            <dimensions width="40" height="20">
+            </dimensions>
+          </boundingBox>
+        </textGlyph>
+      </listOfTextGlyphs>
+    </layout>
+  </listOfLayouts>
+            </annotation>
+    <listOfCompartments>
+      <compartment id="Yeast"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Glucose" compartment="Yeast"/>
+      <species id="Glucose-6-phosphate" compartment="Yeast"/>
+      <species id="ATP" compartment="Yeast"/>
+      <species id="ADP" compartment="Yeast"/>
+      <species id="Pi" compartment="Yeast"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="Hexokinase" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Glucose">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="SpeciesReference_Glucose"/>
+</annotation>
+          </speciesReference>
+          <speciesReference species="ATP">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="SpeciesReference_ATP"/>
+</annotation>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glucose-6-phosphate">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="SpeciesReference_G6P"/>
+</annotation>
+          </speciesReference>
+          <speciesReference species="ADP">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="SpeciesReference_ADP"/>
+</annotation>
+          </speciesReference>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Glucose-6-phosphate">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="ModifierSpeciesReference_G6P"/>
+</annotation>
+          </modifierSpeciesReference>
+          <modifierSpeciesReference species="Pi">
+            <annotation>
+  <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="ModifierSpeciesReference_Pi"/>
+</annotation>
+          </modifierSpeciesReference>
+        </listOfModifiers>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

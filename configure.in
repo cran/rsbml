@@ -1,0 +1,21 @@
+AC_INIT(src/rsbml.h)
+
+LIBSBML_CFLAGS="-I/usr/include/sbml -I/usr/local/include/sbml"
+LIBSBML_LIBS="-L/usr/local/lib -lsbml"
+
+AC_ARG_WITH(libsbml, 
+            AC_HELP_STRING([--with-libsbml=PATH], [prefix where libsbml is installed]),
+            [LIBSBML_LIBS="-L${with_libsbml}/lib -lsbml"
+             LIBSBML_CFLAGS="-I${with_libsbml}/include/sbml"])
+
+CPPFLAGS="$LIBSBML_CFLAGS $CPPFLAGS"
+LIBS="$LIBS $LIBSBML_LIBS"
+
+AC_CHECK_HEADER([SBMLDocument.h],, 
+  AC_MSG_ERROR([Could not find sbml/SBMLDocument.h: use --with-libsbml=/prefix/of/libsbml]))
+AC_CHECK_LIB([sbml], [SBMLDocument_create],,
+  AC_MSG_ERROR([Could not link to libsbml: use --with-libsbml=/prefix/of/libsbml]))
+
+AC_SUBST(LIBSBML_CFLAGS)
+AC_SUBST(LIBSBML_LIBS)
+AC_OUTPUT(src/Makevars)

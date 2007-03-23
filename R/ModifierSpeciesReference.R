@@ -1,0 +1,1 @@
+setClass("ModifierSpeciesReference", contains = "SimpleSpeciesReference")

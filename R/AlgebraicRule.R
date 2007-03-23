@@ -1,0 +1,1 @@
+setClass("AlgebraicRule", contains = "Rule")
