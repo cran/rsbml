@@ -12,12 +12,20 @@
   r_list; \
 })
 
+#include <Rversion.h>
+
+#if (R_VERSION >= R_Version(2,5,0))
+#define SRCFILE , NULL
+#else
+#define SRCFILE
+#endif
 
 #define SET_MATH(class, var, Field, field) \
 ({ \
   ParseStatus status; \
   char *math = SBML_formulaToString(class ## _get ## Field (var)); \
-  SET_SLOT(r_ ## var, install(#field), R_ParseVector(mkString(math), 1, &status)); \
+  SET_SLOT(r_ ## var, install(#field), R_ParseVector(mkString(math), 1, &status \
+    SRCFILE)); \
   if (status != PARSE_OK) { \
     Rprintf("Failed to parse: %s\n", math); \
     free(math); \

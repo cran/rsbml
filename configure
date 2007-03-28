@@ -660,8 +660,7 @@ OBJEXT
 CPP
 GREP
 EGREP
-LIBSBML_CFLAGS
-LIBSBML_LIBS
+LIBSBML_CPPFLAGS
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -1242,7 +1241,9 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-libsbml=PATH     prefix where libsbml is installed
+  --with-libsbml-include=PATH
+                          location of libsbml headers
+  --with-libsbml-lib=PATH location of libsbml library
 
 Some influential environment variables:
   CC          C compiler command
@@ -1677,19 +1678,29 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-LIBSBML_CFLAGS="-I/usr/include/sbml -I/usr/local/include/sbml"
-LIBSBML_LIBS="-L/usr/local/lib -lsbml"
 
-
-# Check whether --with-libsbml was given.
-if test "${with_libsbml+set}" = set; then
-  withval=$with_libsbml; LIBSBML_LIBS="-L${with_libsbml}/lib -lsbml"
-             LIBSBML_CFLAGS="-I${with_libsbml}/include/sbml"
+# Check whether --with-libsbml-include was given.
+if test "${with_libsbml_include+set}" = set; then
+  withval=$with_libsbml_include; LIBSBML_INCLUDE=$withval
 fi
 
 
-CPPFLAGS="$LIBSBML_CFLAGS $CPPFLAGS"
-LIBS="$LIBS $LIBSBML_LIBS"
+# Check whether --with-libsbml-lib was given.
+if test "${with_libsbml_lib+set}" = set; then
+  withval=$with_libsbml_lib; LIBSBML_LIBS=$withval
+fi
+
+
+if test  -n "${LIBSBML_INCLUDE}"  ; then
+  LIBSBML_CPPFLAGS="-I${LIBSBML_INCLUDE}"
+else
+  LIBSBML_CPPFLAGS="-I/usr/include/sbml -I/usr/local/include/sbml"
+fi
+CPPFLAGS="${CPPFLAGS} ${LIBSBML_CPPFLAGS}"
+
+if test  -n "${LIBSBML_LIBS}"  ; then
+  LIBS="-L${LIBSBML_LIBS} ${LIBS}"
+fi
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -3375,8 +3386,12 @@ fi
 if test $ac_cv_header_SBMLDocument_h = yes; then
   :
 else
-  { { echo "$as_me:$LINENO: error: Could not find sbml/SBMLDocument.h: use --with-libsbml=/prefix/of/libsbml" >&5
-echo "$as_me: error: Could not find sbml/SBMLDocument.h: use --with-libsbml=/prefix/of/libsbml" >&2;}
+  { { echo "$as_me:$LINENO: error: Could not find sbml/SBMLDocument.h:
+    rsbml requires libsbml from http://www.sbml.org/software/libsbml/
+    use --with-libsbml-include or LIBSBML_INCLUDE to specify the include path." >&5
+echo "$as_me: error: Could not find sbml/SBMLDocument.h:
+    rsbml requires libsbml from http://www.sbml.org/software/libsbml/
+    use --with-libsbml-include or LIBSBML_INCLUDE to specify the include path." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -3451,8 +3466,10 @@ _ACEOF
   LIBS="-lsbml $LIBS"
 
 else
-  { { echo "$as_me:$LINENO: error: Could not link to libsbml: use --with-libsbml=/prefix/of/libsbml" >&5
-echo "$as_me: error: Could not link to libsbml: use --with-libsbml=/prefix/of/libsbml" >&2;}
+  { { echo "$as_me:$LINENO: error: Could not link to libsbml:
+    use --with-libsbml-lib or LIBSBML_LIBS to specify the lib path." >&5
+echo "$as_me: error: Could not link to libsbml:
+    use --with-libsbml-lib or LIBSBML_LIBS to specify the lib path." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
@@ -4136,13 +4153,12 @@ OBJEXT!$OBJEXT$ac_delim
 CPP!$CPP$ac_delim
 GREP!$GREP$ac_delim
 EGREP!$EGREP$ac_delim
-LIBSBML_CFLAGS!$LIBSBML_CFLAGS$ac_delim
-LIBSBML_LIBS!$LIBSBML_LIBS$ac_delim
+LIBSBML_CPPFLAGS!$LIBSBML_CPPFLAGS$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 51; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 50; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

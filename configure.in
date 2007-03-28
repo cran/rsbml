@@ -1,21 +1,40 @@
 AC_INIT(src/rsbml.h)
 
-LIBSBML_CFLAGS="-I/usr/include/sbml -I/usr/local/include/sbml"
-LIBSBML_LIBS="-L/usr/local/lib -lsbml"
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
 
-AC_ARG_WITH(libsbml, 
-            AC_HELP_STRING([--with-libsbml=PATH], [prefix where libsbml is installed]),
-            [LIBSBML_LIBS="-L${with_libsbml}/lib -lsbml"
-             LIBSBML_CFLAGS="-I${with_libsbml}/include/sbml"])
+AC_ARG_WITH(libsbml-include, 
+            AC_HELP_STRING([--with-libsbml-include=PATH], [location of libsbml headers]),
+            [LIBSBML_INCLUDE=$withval])
+AC_ARG_WITH(libsbml-lib, 
+            AC_HELP_STRING([--with-libsbml-lib=PATH], [location of libsbml library]),
+            [LIBSBML_LIBS=$withval])
 
-CPPFLAGS="$LIBSBML_CFLAGS $CPPFLAGS"
-LIBS="$LIBS $LIBSBML_LIBS"
+if test [ -n "${LIBSBML_INCLUDE}" ] ; then
+  LIBSBML_CPPFLAGS="-I${LIBSBML_INCLUDE}"
+else
+  LIBSBML_CPPFLAGS="-I/usr/include/sbml -I/usr/local/include/sbml"
+fi
+CPPFLAGS="${CPPFLAGS} ${LIBSBML_CPPFLAGS}"
+
+if test [ -n "${LIBSBML_LIBS}" ] ; then
+  LIBS="-L${LIBSBML_LIBS} ${LIBS}"
+fi
 
 AC_CHECK_HEADER([SBMLDocument.h],, 
-  AC_MSG_ERROR([Could not find sbml/SBMLDocument.h: use --with-libsbml=/prefix/of/libsbml]))
+  AC_MSG_ERROR([Could not find sbml/SBMLDocument.h: 
+    rsbml requires libsbml from http://www.sbml.org/software/libsbml/
+    use --with-libsbml-include or LIBSBML_INCLUDE to specify the include path.]))
 AC_CHECK_LIB([sbml], [SBMLDocument_create],,
-  AC_MSG_ERROR([Could not link to libsbml: use --with-libsbml=/prefix/of/libsbml]))
+  AC_MSG_ERROR([Could not link to libsbml: 
+    use --with-libsbml-lib or LIBSBML_LIBS to specify the lib path.]))
 
-AC_SUBST(LIBSBML_CFLAGS)
-AC_SUBST(LIBSBML_LIBS)
+AC_SUBST(LIBSBML_CPPFLAGS)
+AC_SUBST(LIBS)
 AC_OUTPUT(src/Makevars)
