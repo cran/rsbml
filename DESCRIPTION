@@ -1,6 +1,6 @@
 Package: rsbml
-Version: 1.0-6
-Date:    2007/3/28
+Version: 1.2
+Date:    2007/4/11
 Title: R support for SBML, using libsbml
 Author:  Michael Lawrence <lawremi@iastate.edu>
 Depends: R (>= 2.3.1), graph, methods
@@ -10,4 +10,4 @@ Description: Links R to libsbml for SBML parsing and output,
   provides an S4 SBML DOM, converts SBML to R graph objects, and more.
 License: GPL
 URL:  http://www.sbml.org
-Packaged: Wed Mar 28 08:31:01 2007; larman
+Packaged: Wed Apr 11 14:39:40 2007; larman

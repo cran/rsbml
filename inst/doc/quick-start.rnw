@@ -1,0 +1,93 @@
+\documentclass[english]{article}
+\begin{document}
+
+\title{Quick introduction to the rsbml package}
+%\VignetteIndexEntry{Quick start for rsbml}
+\author{Michael Lawrence}
+
+\maketitle
+
+\section*{Importing an SBML document}
+Most users will begin an rsbml session by importing an SBML file into R.
+In the example below, we load an SBML file describing the glycolysis pathway.
+It is also possible to parse an R character vector instead of an external file.
+
+<<read>>=
+library(rsbml)
+doc <- rsbml_read(system.file("sbml", "GlycolysisLayout.xml", package = "rsbml"))
+@
+
+If errors are encountered, the function throws an error along with
+warnings describing the specific problem(s) with the document.
+Otherwise, the result is an opaque object referring to a low-level 
+libsbml data structure. From here, the user currently has two options for 
+accessing the data: as an S4 object conforming to the SBML document object 
+model or as a Bioconductor graph object.
+
+\section*{The S4 object representation}
+Converting the opaque libsbml parse result to an S4 object is simple:
+
+<<dom>>=
+dom <- rsbml_dom(doc)
+@
+
+The result contains all of the information from the SBML. Methods exist for
+accessing every element of the SBML specification (up to L2V1). Here is how
+one would retrieve all of the species ID's from the SBML model:
+
+<<ids>>=
+sapply(species(model(dom)), id)
+@
+
+The user may also modify every part of the model. Note that very little 
+validation is performed in response to modifications. See \ref{sec:checking} for
+a guide to checking SBML models for consistency problems.
+
+\section*{The graph representation}
+All SBML models have an implicit graphical structure. To extract this into
+a Bioconductor graph object, type the following:
+
+<<graph>>=
+g <- rsbml_graph(doc)
+nodes(g)
+@
+
+Note that the list of node ID's contains all of the species ID's retrieved from
+the S4 object above. The additional ID's are for the reaction nodes.
+At this point, the graph can be passed to other packages, such as RBGL, Rgraphviz, etc.
+
+\section*{Checking SBML models for consistency}\label{checking}
+The SBML specification provides many complex rules that ensure an SBML model
+is internally consistent. The following is an example of checking a document
+against those rules.
+
+<<check>>=
+rsbml_check(doc)
+@
+
+If there were any problems with the document, they would be communicated as
+warnings. If you would like to compute on the problems, the following returns
+a data structure describing the errors along with their positions in the SBML,
+if available.
+
+<<problems>>=
+doc <- rsbml_read("non-existent-file.xml", check = FALSE)
+rsbml_problems(doc)
+@
+
+\section*{Writing SBML documents}
+After creating/manipulating SBML objects in R, the result may be translated
+back to XML in two different ways: directly to a file or to an R character vector.
+This example is of the latter:
+
+<<xml>>=
+xml <- rsbml_xml(doc)
+@
+
+The result is a string XML representation of the SBML model.
+
+\section*{More information}
+For more details, please see the online help for the rsbml package. If you
+encounter problems, please email lawremi at the domain iastate.edu.
+
+\end{document}

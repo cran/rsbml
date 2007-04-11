@@ -23,14 +23,8 @@ Class \code{"\linkS4class{oldClass}"}, directly.
 }
 \section{Methods}{
   \describe{
-    \item{coerce}{\code{signature(from = "SBMLDocument", to = "graph")}: 
-    Converts a libsbml document to a \code{\link[graph:graph-class]{graph}}.}
-    \item{coerce}{\code{signature(from = "SBMLDocument", to = "SBML")}: 
-      Constructs an S4 object model from a libsbml document.}
-    \item{coerce}{\code{signature(from = "SBML", to = "SBMLDocument")}: 
-      Converts an S4 object model to a libsbml document.}
-    \item{rsbml\_check}{\code{signature(object = "SBMLDocument")}: semantically 
-      validates the document. }
+    \item{rsbml\_check}{\code{signature(object = "SBMLDocument")}: 
+      semantically validates the document. Emits warnings describing the problems.}
     \item{rsbml\_dom}{\code{signature(doc = "SBMLDocument")}: Constructs an S4 
       object model from a libsbml document. }
     \item{rsbml\_graph}{\code{signature(doc = "SBMLDocument")}: Converts a 
